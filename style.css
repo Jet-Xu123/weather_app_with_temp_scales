@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card{
+    background: linear-gradient(62deg, #FBAB7E, #F7EC68);
+    font-family: "Century Gothic", sans-serif;
+}
+
+.card_text{
+    color: white;
+   
+}
+
+input[type=text]{
+    border-radius: 4px;
+}
+
+::-webkit-input-placeholder{
+    text-align: center;
+}
