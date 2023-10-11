@@ -5,25 +5,33 @@
     box-sizing: border-box;
 }
 
-body{
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .card{
     background: linear-gradient(62deg, #FBAB7E, #F7EC68);
+    border-radius: 12px;
     font-family: "Century Gothic", sans-serif;
+    align-items: center;
+    justify-content: space-between;
+    margin: 100px auto 0;
+    width: 80%;
+    height: 500px;
+    max-width: 450px;
 }
 
 .card_text{
-    color: white;
-   
+    color: white;  
 }
 
-input[type=text]{
-    border-radius: 4px;
+.search_button{
+    margin-left: 2px;
+    background-color: transparent;
+    height: 30px;
+    width: 30px;
+    border-radius: 12px;
+}
+
+.search_city input{
+    border-radius: 12px;
+    height: 25px;
 }
 
 ::-webkit-input-placeholder{
