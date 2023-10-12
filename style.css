@@ -17,7 +17,7 @@
     max-width: 450px;
 }
 
-.search_button{
+.search-button{
     margin-left: 2px;
     background-color: transparent;
     height: 30px;
@@ -25,13 +25,29 @@
     border-radius: 12px;
 }
 
-.search_city input{
+.search-city input{
     border-radius: 12px;
     font-size: 20px;
     width: 250px;
     height: 30px;
+    margin-bottom: 30px;
+}
+
+.main-weather .mw-icon{
+    font-size: 100px;
+    align-items: center;
+}
+
+.side-weather{
+    font-size: 50px;
 }
 
 ::-webkit-input-placeholder{
     text-align: center;
+}
+
+.weather-info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
