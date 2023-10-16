@@ -33,21 +33,43 @@
     margin-bottom: 30px;
 }
 
-.main-weather .mw-icon{
-    font-size: 100px;
-    align-items: center;
+::-webkit-input-placeholder{
+    text-align: center;
 }
 
-.side-weather{
+
+
+.weather{
+    align-items: center;
+    
+}
+
+.weather i{
+    font-size: 100px;
+    margin-bottom: 10px;
+}
+
+.weather h1{
     font-size: 50px;
 }
 
-::-webkit-input-placeholder{
-    text-align: center;
+.weather h2{
+    margin-top: -10px;
+    font-size: 30px;
 }
 
 .weather-info{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    column-gap: 10em;
 }
+
+.weather-info i{
+    font-size: 40px;
+    margin-bottom: -15px;
+
+}
+
+
+
