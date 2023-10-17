@@ -63,6 +63,10 @@
     font-size: 15px;
 }
 
+.error-message{
+    font-size: 5px;
+}
+
 .weather-info{
     display: flex;
     align-items: center;
