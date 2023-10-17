@@ -58,6 +58,11 @@
     font-size: 30px;
 }
 
+.weather h3{
+    margin-top: -10px;
+    font-size: 15px;
+}
+
 .weather-info{
     display: flex;
     align-items: center;
