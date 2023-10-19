@@ -8,10 +8,11 @@ $(document).ready(function() {
     const feels_like  = document.querySelector('.feels-like');
     const weather_info = document.querySelector('.weather-info');
 
-    weather_info.style.visibility = "hidden";
+    const wind = document.querySelector('.speed');
+    const humidity = document.querySelector('.percentage');
 
-    //const wind = document.querySelector('.wind');
-    //const humidity = document.querySeledctor('.humidity');
+    const wind_metric = " m/s";
+    const wind_imperial = " mph";
     
 
     search_button.addEventListener('click', weatherData);
@@ -35,23 +36,20 @@ $(document).ready(function() {
                     city.innerHTML = "Unable to find city. Please try again.";
                     temperature.innerHTML = "";
                     feels_like.innerHTML = "";
-                    weather_info.style.visibility = "hidden";
                     return;
                 } else if (response.status !== 200 && response.status !== 404){
                     weather_icon.className = "mw-icon fa-solid fa-circle-exclamation text-light";
                     city.innerHTML = "Whoops! Something went wrong. Please try again later.";
                     temperature.innerHTML = "";
                     feels_like.innerHTML = "";
-
                     console.log(response.status);
                     return;
                 }
                 response.json().then(function (data) {
+                    weather.style.display = "block";
                     city.innerHTML = data.name;
                     feels_like.innerHTML = "Feels like: " + Math.round(data.main.feels_like) + String.fromCharCode(176) + 'C';
                     temperature.innerHTML = Math.round(data.main.temp) + String.fromCharCode(176) + 'C';
-                    weather_info.style.visibility = "visible";
-                    console.log(data.weather[0].main);
                     switch(data.weather[0].main){
                         case 'Clear':
                             weather_icon.className = "mw-icon fa-solid fa-sun text-light";
@@ -72,6 +70,8 @@ $(document).ready(function() {
                             weather_icon.className = "mw-icon fa-regular fa-snowflake text-light";
                             break;
                     }
+                    wind.innerHTML = data.wind.speed + wind_metric;
+                    humidity.innerHTML = data.main.humidity + "%";
                 });
             });
     }

@@ -23,6 +23,17 @@
     height: 30px;
     width: 30px;
     border-radius: 12px;
+    
+}
+
+.search-button:hover{
+    background: #B89D6A;
+    transition: 0.2s ease;
+}
+
+.search-button:not(:hover){
+    background: transparent;
+    transition: 0.2s ease;
 }
 
 .search-city input{
@@ -30,7 +41,7 @@
     font-size: 20px;
     width: 250px;
     height: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
 }
 
 ::-webkit-input-placeholder{
@@ -41,7 +52,8 @@
 
 .weather{
     align-items: center;
-    
+    display: none;
+    margin-top: 10px;
 }
 
 .weather i{
@@ -63,10 +75,6 @@
     font-size: 15px;
 }
 
-.error-message{
-    font-size: 5px;
-}
-
 .weather-info{
     display: flex;
     align-items: center;
@@ -80,5 +88,31 @@
 
 }
 
+.wind, .humidity{
+    font-size: 15px;
+}
 
+.celsius{
+    margin-right: 10px;
+}
 
+.fahrenheit{
+    margin-left: 10px;
+}
+
+.celsius, .fahrenheit{
+    width: 40px;
+    height: 30px;
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+.celsius:hover, .fahrenheit:hover{
+    background: #B89D6A;
+    transition: 0.2s ease;
+}
+
+.fahrenheit:not(:hover), .celsius:not(:hover){
+    background: transparent;
+    transition: 0.2s ease;
+}
