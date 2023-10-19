@@ -1,6 +1,7 @@
 $(document).ready(function() {
     const container = document.querySelector('.container');
     const weather = document.querySelector('.weather');
+    const search = document.querySelector('.city-search');
     const search_button = document.querySelector('.search-button');
     const weather_icon = document.querySelector('.mw-icon');
     const temperature = document.querySelector('.temperature');
@@ -13,8 +14,9 @@ $(document).ready(function() {
 
     var onC = true;
 
-    //Button elements
+    //Button elements (Set celsius to be default scale of temperature)
     const celsius = document.querySelector('.celsius');
+    celsius.style.background = "#7D6346";
     const fahrenheit = document.querySelector('.fahrenheit');
 
     //Event Listeners for buttons
@@ -32,7 +34,7 @@ $(document).ready(function() {
 
     function weatherData(){
         const APIKey = '53ff1863fb72f76f754256924527c5cb';
-        const city_search = document.querySelector('.city-search').value;
+        const city_search = search.value;
         var units = "";
         var deg = "";
         var wind_unit = "";
@@ -40,11 +42,11 @@ $(document).ready(function() {
         if (onC === true){
             units = 'metric';
             deg = "C";
-            wind_unit = " m/s";
+            wind_unit = "m/s";
         }else{
             units = 'imperial';
             deg = "F";
-            wind_unit = " mph";
+            wind_unit = "mph";
         }
 
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city_search + '&units=' + units + '&appid=' + APIKey)
@@ -55,7 +57,7 @@ $(document).ready(function() {
                     weather.style.display = "block";
                     weather_info.style.display = "none";
                     return;
-                } else if (response.status !== 200 && response.status !== 404 && response.status !== 404){
+                } else if (response.status !== 200 && response.status !== 404 && response.status !== 400){
                     weather_icon.className = "mw-icon fa-solid fa-circle-exclamation text-light";
                     city.innerHTML = "Whoops! Something went wrong. Please try again later.";
                     weather.style.display = "block";
@@ -96,11 +98,14 @@ $(document).ready(function() {
     };
 
     function clickC(){
-        
+        const city_search = search.value;
         if (onC === false){
             onC = true;
-            fahrenheit.style.background = "transparent";
+            fahrenheit.style.background = "";
             celsius.style.background = "#7D6346";
+            if (city_search !== ""){
+                weatherData();
+            }
         }else{
             return;
         }
@@ -109,10 +114,14 @@ $(document).ready(function() {
     }
 
     function clickF(){
+        const city_search = search.value;
         if (onC === true){
             onC = false;
-            celsius.style.background = "transparent";
+            celsius.style.background = "";
             fahrenheit.style.background = "#7D6346";
+            if (city_search !== ""){
+                weatherData();
+            }
         }else{
             return;
         }
