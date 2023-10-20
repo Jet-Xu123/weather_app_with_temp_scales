@@ -13,6 +13,7 @@ $(document).ready(function() {
     const humidity = document.querySelector('.percentage'); 
 
     var onC = true;
+    var temp_search = "";
 
     //Button elements (Set celsius to be default scale of temperature)
     const celsius = document.querySelector('.celsius');
@@ -35,9 +36,7 @@ $(document).ready(function() {
     function weatherData(){
         const APIKey = '53ff1863fb72f76f754256924527c5cb';
         const city_search = search.value;
-        var units = "";
-        var deg = "";
-        var wind_unit = "";
+        var units, deg, wind_unit;
 
         if (onC === true){
             units = 'metric';
@@ -49,17 +48,23 @@ $(document).ready(function() {
             wind_unit = "mph";
         }
 
+        temp_search = city_search;
+
         fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city_search + '&units=' + units + '&appid=' + APIKey)
             .then(function (response) {
                 if (response.status === 404 || response.status === 400){
                     weather_icon.className = "mw-icon fa-solid fa-person-circle-question text-light";
                     city.innerHTML = "Unable to find city. Please try again.";
+                    temperature.innerHTML = "";
+                    feels_like.innerHTML = "";
                     weather.style.display = "block";
                     weather_info.style.display = "none";
                     return;
                 } else if (response.status !== 200 && response.status !== 404 && response.status !== 400){
                     weather_icon.className = "mw-icon fa-solid fa-circle-exclamation text-light";
                     city.innerHTML = "Whoops! Something went wrong. Please try again later.";
+                    temperature.innerHTML = "";
+                    feels_like.innerHTML = "";
                     weather.style.display = "block";
                     weather_info.style.display = "none";
                     return;
@@ -103,7 +108,7 @@ $(document).ready(function() {
             onC = true;
             fahrenheit.style.background = "";
             celsius.style.background = "#7D6346";
-            if (city_search !== ""){
+            if (city_search !== "" && temp_search === city_search){
                 weatherData();
             }
         }else{
@@ -119,7 +124,7 @@ $(document).ready(function() {
             onC = false;
             celsius.style.background = "";
             fahrenheit.style.background = "#7D6346";
-            if (city_search !== ""){
+            if (city_search !== "" && temp_search === city_search){
                 weatherData();
             }
         }else{
