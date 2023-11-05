@@ -25,14 +25,6 @@ $(document).ready(function() {
     celsius.addEventListener('click', clickC);
     fahrenheit.addEventListener('click', clickF);
 
-    /**
-     search_button.addEventListener('click', function() {
-        weather_icon.className = "mw-icon fa-solid fa-circle-exclamation text-light";
-        city.innerHTML = "Whoops! Something went wrong. Please try again later.";
-    });
-     */
-    
-
     function weatherData(){
         const APIKey = '53ff1863fb72f76f754256924527c5cb';
         const city_search = search.value;
@@ -96,7 +88,74 @@ $(document).ready(function() {
                             weather_icon.className = "mw-icon fa-regular fa-snowflake text-light";
                             break;
                     }
-                    wind.innerHTML = data.wind.speed + wind_unit;
+                    wind.innerHTML = Math.round(data.wind.speed * 10) / 10 + wind_unit;
+                    humidity.innerHTML = data.main.humidity + "%";
+                });
+            });
+    };
+
+    function weatherDataTemp(){
+        const APIKey = '53ff1863fb72f76f754256924527c5cb';
+        const city_search = search.value;
+        var units, deg, wind_unit;
+
+        if (onC === true){
+            units = 'metric';
+            deg = "C";
+            wind_unit = "m/s";
+        }else{
+            units = 'imperial';
+            deg = "F";
+            wind_unit = "mph";
+        }
+
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=' + temp_search + '&units=' + units + '&appid=' + APIKey)
+            .then(function (response) {
+                if (response.status === 404 || response.status === 400){
+                    weather_icon.className = "mw-icon fa-solid fa-person-circle-question text-light";
+                    city.innerHTML = "Unable to find city. Please try again.";
+                    temperature.innerHTML = "";
+                    feels_like.innerHTML = "";
+                    weather.style.display = "block";
+                    weather_info.style.display = "none";
+                    return;
+                } else if (response.status !== 200 && response.status !== 404 && response.status !== 400){
+                    weather_icon.className = "mw-icon fa-solid fa-circle-exclamation text-light";
+                    city.innerHTML = "Whoops! Something went wrong. Please try again later.";
+                    temperature.innerHTML = "";
+                    feels_like.innerHTML = "";
+                    weather.style.display = "block";
+                    weather_info.style.display = "none";
+                    return;
+                }
+                response.json().then(function (data) {
+                    weather.style.display = "block";
+                    weather_info.style.display = "flex";
+                    city.innerHTML = data.name;
+                    
+                    feels_like.innerHTML = "Feels like: " + Math.round(data.main.feels_like) + String.fromCharCode(176) + deg;
+                    temperature.innerHTML = Math.round(data.main.temp) + String.fromCharCode(176) + deg;
+                    switch(data.weather[0].main){
+                        case 'Clear':
+                            weather_icon.className = "mw-icon fa-solid fa-sun text-light";
+                            break;
+                        case 'Rain':
+                            weather_icon.className = "mw-icon fa-solid fa-cloud-showers-heavy text-light";
+                            break;
+                        case 'Thunderstorm':
+                            weather_icon.className = "mw-icon fa-solid fa-cloud-bolt text-light";
+                            break;
+                        case 'Drizzle':
+                            weather_icon.className = "mw-icon fa-solid fa-cloud-rain text-light";
+                            break;
+                        case 'Clouds':
+                            weather_icon.className = "mw-icon fa-solid fa-cloud text-light";
+                            break;
+                        case 'Snow':
+                            weather_icon.className = "mw-icon fa-regular fa-snowflake text-light";
+                            break;
+                    }
+                    wind.innerHTML = Math.round(data.wind.speed * 10) / 10 + wind_unit;
                     humidity.innerHTML = data.main.humidity + "%";
                 });
             });
@@ -108,8 +167,17 @@ $(document).ready(function() {
             onC = true;
             fahrenheit.style.background = "";
             celsius.style.background = "#7D6346";
-            if (city_search !== "" && temp_search === city_search){
-                weatherData();
+            //if (city_search !== "" && temp_search === city_search){
+            //    weatherData();
+            //}
+            if (temp_search !== ""){
+                if (city_search !== temp_search){
+                    weatherDataTemp();
+                }else{
+                    weatherData();
+                }
+            }else{
+                return;
             }
         }else{
             return;
@@ -124,8 +192,17 @@ $(document).ready(function() {
             onC = false;
             celsius.style.background = "";
             fahrenheit.style.background = "#7D6346";
-            if (city_search !== "" && temp_search === city_search){
-                weatherData();
+            //if (city_search !== "" && temp_search === city_search){
+            //    weatherData();
+            //}
+            if (temp_search !== ""){
+                if (city_search !== temp_search){
+                    weatherDataTemp();
+                }else{
+                    weatherData();
+                }
+            }else{
+                return;
             }
         }else{
             return;
