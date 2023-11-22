@@ -26,7 +26,7 @@ $(document).ready(function() {
     fahrenheit.addEventListener('click', clickF);
 
     function weatherData(){
-        const APIKey = '53ff1863fb72f76f754256924527c5cb';
+        const APIKey = 'TEMP';
         const city_search = search.value;
         var units, deg, wind_unit;
 
@@ -95,7 +95,7 @@ $(document).ready(function() {
     };
 
     function weatherDataTemp(){
-        const APIKey = '53ff1863fb72f76f754256924527c5cb';
+        const APIKey = 'TEMP';
         const city_search = search.value;
         var units, deg, wind_unit;
 
